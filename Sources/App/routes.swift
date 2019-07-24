@@ -6,10 +6,11 @@ public func routes(_ router: Router) throws {
     router.get { req in
         return "It works!"
     }
-    
-    // Basic "Hello, world!" example
-    router.get("hello") { req in
-        return "Hello, world!"
+
+    router.post("slack_bot") { (req) -> Future<String> in
+        return try req.content.decode(ChallengeToken.self).map(to: String.self) { challengeToken in
+            return challengeToken.challenge
+        }
     }
 
     // Example of configuring a controller
