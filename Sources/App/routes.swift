@@ -7,7 +7,7 @@ public func routes(_ router: Router) throws {
         return "It works!"
     }
 
-    router.post("slack_bot") { (req) -> Future<String> in
+    router.post("events") { (req) -> Future<String> in
         return try req.content.decode(ChallengeToken.self).map(to: String.self) { challengeToken in
             return challengeToken.challenge
         }
