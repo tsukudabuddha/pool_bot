@@ -8,9 +8,10 @@ public func routes(_ router: Router) throws {
     }
 
     router.post("events") { (req) -> Future<String> in
-        return try req.content.decode(ChallengeToken.self).map(to: String.self) { challengeToken in
+        let challenge: Future<String> = try req.content.decode(ChallengeToken.self).map(to: String.self) { challengeToken in
             return challengeToken.challenge
         }
+        return challenge
     }
 
     // Example of configuring a controller
